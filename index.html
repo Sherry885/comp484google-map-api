@@ -1,93 +1,626 @@
+<!-- //https://console.cloud.google.com/apis/credentials?authuser=2&project=my-first-project-test-25143&supportedpurview=project -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
-    <title>Tuan Tuan</title>
-    <meta name="description" content="A cool thing made with Glitch" />
-    <link
-      id="favicon"
-      rel="icon"
-      href="https://glitch.com/edit/favicon-app.ico"
-      type="image/x-icon"
-    />
+    <title>Google Map API!</title>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="script.js" defer></script>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <header>
-      <h1>
-        Giga Pet Tuan Tuan
-      </h1>
-    </header>
-
-    <main>
-      <section class="pet-image-container">
-        <!-- Replace pet image with your own pet image -->
-        <img
-          class="pet-image"
-          src="https://cdn.glitch.com/7d5f3157-18ec-4e02-ab0a-8c10032b664f%2FIMG_4433.JPG?v=1588469194873"
-        />
-      </section>
-      <section class="dashboard">
-        <div>
-          Name: <strong><span class="name"></span></strong>
-        </div>
-        <div>
-          Weight: <strong><span class="weight"></span> pounds</strong>
-        </div>
-        <div>
-          Happiness:
-          <strong><span class="happiness"></span> tail wags (per min)</strong>
-        </div>
-        <!--         add new behavior -->
-        <div>
-          Sadness:
-          <strong><span class="sadness"></span> tail wags (per min)</strong>
-        </div>
-        <div class="button-container">
-          <button class="treat-button">
-            Treat
-            <!--             extra credit, add audio -->
-            <audio
-              id="audiotreat"
-              src="https://cdn.glitch.com/7d5f3157-18ec-4e02-ab0a-8c10032b664f%2Fdog_drinking.mp3?v=1586160901893"
-            ></audio>
-          </button>
-          <button class="play-button">
-            Play
-            <!--             extra credit, add audio -->
-            <audio
-              id="audioplay"
-              src="https://cdn.glitch.com/7d5f3157-18ec-4e02-ab0a-8c10032b664f%2Fbill.mp3?v=1586160907119"
-            ></audio>
-          </button>
-          <button class="exercise-button">
-            Exercise
-            <!--             extra credit, add audio -->
-            <audio
-              id="audioexercise"
-              src="https://cdn.glitch.com/7d5f3157-18ec-4e02-ab0a-8c10032b664f%2Fpupwhimper.mp3?v=1586160904356"
-            ></audio>
-          </button>
-        </div>
-      </section>
-    </main>
-
-    <!-- Your web-app is https, so your scripts need to be too -->
+    <!-- import the webpage's stylesheet -->
+    <link rel="stylesheet" href="/style.css" />
+    <!-- insert dbclick event listener library -->
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <!-- insert the script to reference jQuery here -->
     <script
-      src="https://code.jquery.com/jquery-2.2.1.min.js"
-      integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+      src="https://code.jquery.com/jquery-3.3.1.js"
+      integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
       crossorigin="anonymous"
     ></script>
+  </head>
+  <body>
+    <!--     #############################  quiz text ######################################################################################## -->
+    <div id="question">
+      <div style="margin:0% 0% 0% 20%">
+        <b id="anm">
+          Map Quiz, Please double click on the map the location of: <br />
+          (Click Here for Hint)
+        </b>
+      </div>
+      <div class="q" id="q1"></div>
+      <div class="a" id="a1"></div>
+      <div class="r" id="r1"></div>
+
+      <div class="q" id="q2"></div>
+      <div class="a" id="a2"></div>
+      <div class="r" id="r2"></div>
+
+      <div class="q" id="q3"></div>
+      <div class="a" id="a3"></div>
+      <div class="r" id="r3"></div>
+
+      <div class="q" id="q4"></div>
+      <div class="a" id="a4"></div>
+      <div class="r" id="r4"></div>
+
+      <div class="q" id="q5"></div>
+      <div class="a" id="a5"></div>
+      <div class="r" id="r5"></div>
+      <div id="count"></div>
+      <p id="showclick">
+        Click Show button on map for labels!
+      </p>
+    </div>
+    <!--##############insert value and toggle############################################################ -->
+    <script>
+      $("document").ready(function() {
+        $("#q1").append("<p>Where is the Oviatt Library?</p>");
+        $("#q2").append("<p>Where is the Live Oak Hall?</p>");
+        $("#q3").append("<p>Where is the Sierra Hall?</p>");
+        $("#q4").append("<p>Where is the University Hall?</p>");
+        $("#q5").append("<p>Where is the Santa Susana Hall?</p>");
+        $(".a").append("<p>Yes, your answer is right!</p>");
+        $(".r").append("<p>No, wrong answer!</p>");
+        $("#q2,#q3,#q4,#q5,.a,.r,#showclick").toggle();
+      });
+    </script>
+    <!-- hide and show,referencehttps://developers.google.com/maps/documentation/javascript/examples/hiding-features -->
+    <div id="style-selector-control" class="map-control" style="color:red">
+      <input
+        type="radio"
+        name="show-hide"
+        id="hide-poi"
+        class="selector-control"
+        checked="checked"
+      />
+      <label for="hide-poi">Hide</label>
+
+      <input
+        type="radio"
+        name="show-hide"
+        id="show-poi"
+        class="selector-control"
+      />
+      <label for="show-poi" id="showlabel">Show</label>
+
+      <script>
+        anm.onclick = function() {
+          $("#showclick").toggle();
+          let start = Date.now();
+          let timer = setInterval(function() {
+            let timePassed = Date.now() - start;
+            showclick.style.left = timePassed / 5 + "px";
+            if (timePassed > 3000){
+              clearInterval(timer);
+              $("#showclick").toggle();
+            }
+          }, 20);
+        };
+      </script>
+    </div>
+    <!--###########  insert map  ######################################################################################## -->
+    <div id="map"></div>
+    <script>
+      // counter
+      var right = 0,
+        wrong = 0;
+      var addright = (function() {
+        var right = 0;
+        return function() {
+          right += 1;
+          return right;
+        };
+      })();
+
+      var addwrong = (function() {
+        var wrong = 0;
+        return function() {
+          wrong += 1;
+          return wrong;
+        };
+      })();
+      // https://developers.google.com/maps/documentation/javascript/reference/map#MapOptions
+      //https://developers.google.com/maps/documentation/javascript/reference/event#MapsEventListener
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById("map"), {
+          center: { lat: 34.2385097, lng: -118.5300685 },
+          gestureHandling: "none", //https://developers.google.com/maps/documentation/javascript/interaction
+          zoom: 17,
+          mapTypeControl: false,
+          array: [
+            {
+              featureType: "all",
+              elementType: "labels",
+              stylers: [{ visibility: "off" }]
+            }
+          ]
+        });
+        // no labels
+        var customStyled = map.array;
+        map.set("styles", customStyled);
+
+        // Add controls to the map, allowing users to hide/show features.
+        var styleControl = document.getElementById("style-selector-control");
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(styleControl);
+        // Apply new JSON when the user chooses to hide/show features.
+        document
+          .getElementById("hide-poi")
+          .addEventListener("click", function() {
+            map.setOptions({ styles: styles["hide"] });
+          });
+        document
+          .getElementById("show-poi")
+          .addEventListener("click", function() {
+            map.setOptions({ styles: styles["default"] });
+          });
+        //no labels, referencehttps://developers.google.com/maps/documentation/javascript/examples/hiding-features
+        var styles = {
+          default: null,
+          hide: [
+            {
+              featureType: "all",
+              elementType: "labels",
+              stylers: [{ visibility: "off" }]
+            }
+          ]
+        };
+
+        // #########################  draw rectangle,reference https://developers.google.com/maps/documentation/javascript/shapes#rectangles
+        //https://stackoverflow.com/questions/22284701/event-click-to-rectangle-on-google-map-v3
+        // https://developers.google.com/maps/documentation/javascript/reference/polygon#RectangleOptions.visible#######
+        var rectangles = [];
+        rectangles[0] = [];
+        //############################# draw library receangle, good version#################################################
+        var rectol = new google.maps.Rectangle({
+          strokeOpacity: 0,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.24055,
+            south: 34.2396,
+            east: -118.5285686,
+            west: -118.5301686
+          }
+        });
+
+        // add listener to library rectangle
+        // var llibrary
+        rectangles[0] = google.maps.event.addListener(
+          rectol,
+          "dblclick",
+          function() {
+            // console.log("Oviatt Library clicked.");
+            var rectol = new google.maps.Rectangle({
+              strokeColor: "green",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: "green",
+              fillOpacity: 0.35,
+              map: map,
+              bounds: {
+                north: 34.24055,
+                south: 34.2396,
+                east: -118.5285686,
+                west: -118.5301686
+              }
+            });
+            $("#q2").toggle(); //toggle display, reference https://api.jquery.com/toggle/#toggle-display
+            $("#a1").toggle();
+            right += 1;
+            // console.log(right);
+          }
+        ); //goog version end
+
+        // #####################################  try on loop event ##########################################################################
+        //if click var lloh wrong
+
+        // ##############################  draw live oak hall rectangle  ###################################################################
+        var rectloh = new google.maps.Rectangle({
+          strokeOpacity: 0,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.2381714, //up
+            south: 34.2383714, //down
+            east: -118.5276017, //right
+            west: -118.5288181 //left
+          }
+        });
+        //add listener
+        // var lloh
+        rectangles[1] = google.maps.event.addListener(
+          rectloh,
+          "dblclick",
+          function() {
+            // console.log("Live Oak Hall clicked.");
+            var rectloh = new google.maps.Rectangle({
+              strokeColor: "green",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: "green",
+              fillOpacity: 0.35,
+              map: map,
+              bounds: {
+                north: 34.2381714, //up
+                south: 34.2383714, //down
+                east: -118.5276017, //right
+                west: -118.5288181 //left
+              }
+            });
+            $("#q3").toggle(); //toggle display, reference https://api.jquery.com/toggle/#toggle-display
+            $("#a2").toggle();
+            right += 1;
+            // console.log(right);
+          }
+        );
+        // #############################   sierra hall  ####################################################################
+        var rectsh = new google.maps.Rectangle({
+          strokeOpacity: 0,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.2384714, //up
+            south: 34.2380914, //down
+            east: -118.5300017, //right
+            west: -118.5314181 //left
+          }
+        });
+        //add listener
+        // var lsh
+        rectangles[2] = google.maps.event.addListener(
+          rectsh,
+          "dblclick",
+          function() {
+            // console.log("Sierra Hall clicked.");
+            var rectsh = new google.maps.Rectangle({
+              strokeColor: "green",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: "green",
+              fillOpacity: 0.35,
+              map: map,
+              bounds: {
+                north: 34.2384714, //up
+                south: 34.2380914, //down
+                east: -118.5300017, //right
+                west: -118.5314181 //left
+              }
+            });
+            $("#q4").toggle(); //toggle display, reference https://api.jquery.com/toggle/#toggle-display
+            $("#a3").toggle();
+            right += 1;
+            // console.log(right);
+          }
+        );
+        // ###############################  draw University Hall  ##################################################################
+        var rectuv = new google.maps.Rectangle({
+          strokeOpacity: 0,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.24015, //up
+            south: 34.23929, //down
+            east: -118.532, //right
+            west: -118.5323181 //left
+          }
+        });
+        //add listener
+        // var luv
+        rectangles[3] = google.maps.event.addListener(
+          rectuv,
+          "dblclick",
+          function() {
+            // console.log("University Hall clicked.");
+            var rectuv = new google.maps.Rectangle({
+              strokeColor: "green",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: "green",
+              fillOpacity: 0.35,
+              map: map,
+              bounds: {
+                north: 34.24015, //up
+                south: 34.23929, //down
+                east: -118.532, //right
+                west: -118.5323181 //left
+              }
+            });
+            $("#q5").toggle(); //toggle display, reference https://api.jquery.com/toggle/#toggle-display
+            $("#a4").toggle();
+            right += 1;
+            // console.log(right);
+          }
+        );
+        // ##############################  draw Santa Susana Hall  ###################################################################
+        var rectnf = new google.maps.Rectangle({
+          strokeOpacity: 0,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.2373, //bigger->up,bottom
+            south: 34.2378714, //small->down
+            east: -118.5290017, //smaller->right
+            west: -118.5294081 //smaller->left
+          }
+        });
+        //add listener
+        // var lnh
+        rectangles[4] = google.maps.event.addListener(
+          rectnf,
+          "dblclick",
+          function() {
+            // console.log("Santa Susana Hall clicked.");
+            var rectnf = new google.maps.Rectangle({
+              strokeColor: "green",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: "green",
+              fillOpacity: 0.35,
+              map: map,
+              bounds: {
+                north: 34.2373, //bigger->up,bottom
+                south: 34.2378714, //small->down
+                east: -118.5290017, //smaller->right
+                west: -118.5294081 //smaller->left
+              }
+            });
+            //toggle display, reference https://api.jquery.com/toggle/#toggle-display
+            $("#a5").toggle();
+            right += 1;
+            // console.log(right);
+            $("#count").append(
+              "<b>You have </b>" +
+                right +
+                "<b> correct, </b>" +
+                wrong +
+                "<b> wrong.</b>"
+            );
+          }
+        );
+        /////////////////////////////////////////////////////////////////////////////////////////////////
+        function addClickListener(rectObj) {
+          google.maps.event.addListener(rectObj, "dblclick", function() {
+            // console.log("test rectObj");
+          });
+        }
+        //Now, we can loop through the `rectangles` arrays, adding listeners.
+        for (var i = 0; i < 5; i++) {
+          if (rectangles[i]) {
+            //safety
+            addClickListener(rectangles[i]);
+            // console.log("test for var");
+          }
+        }
+        // ###########################  draw other halls  #####################################################################################################
+        var rectbk = new google.maps.Rectangle({
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.2370014, //up
+            south: 34.2378714, //down
+            east: -118.5276017, //right
+            west: -118.5288181 //le
+          }
+        });
+
+        rectangles[6] = google.maps.event.addListener(
+          rectbk,
+          "dblclick",
+          function() {
+            // console.log("Santa Susana Hall clicked.");
+            var rectbk = new google.maps.Rectangle({
+              strokeColor: "red",
+              strokeOpacity: 0.8,
+              strokeWeight: 2,
+              fillColor: "red",
+              fillOpacity: 0.35,
+              map: map,
+              bounds: {
+                north: 34.2370014, //up
+                south: 34.2378714, //down
+                east: -118.5276017, //right
+                west: -118.5288181 //le
+              }
+            });
+            //toggle display, reference https://api.jquery.com/toggle/#toggle-display
+            $("#r5").toggle();
+            wrong += 1;
+            // console.log(wrong);
+            $("#count").append(
+              "<b>You have </b>" +
+                right +
+                "<b> correct, </b>" +
+                wrong +
+                "<b> wrong.</b>"
+            );
+          }
+        );
+        var rectvpac = new google.maps.Rectangle({
+          strokeColor: "#FF0000",
+          // strokeOpacity: 0.8,
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          // fillOpacity: 0.35,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.2368014, //up
+            south: 34.2357714, //smaller->down
+            east: -118.5276017, //right
+            west: -118.5288181 //le
+          }
+        });
+        var rectch = new google.maps.Rectangle({
+          strokeColor: "#FF0000",
+          // strokeOpacity: 0.8,
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          // fillOpacity: 0.35,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.2387714, //bigger->up
+            south: 34.2392714, //small->down
+            east: -118.5276017, //right
+            west: -118.5288181 //left
+          }
+        });
+        var recthhm = new google.maps.Rectangle({
+          strokeColor: "#FF0000",
+          // strokeOpacity: 0.8,
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          // fillOpacity: 0.35,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.2407714, //bigger->up
+            south: 34.2400714, //small->down
+            east: -118.5276017, //right
+            west: -118.5285181 //smaller->left
+          }
+        });
+        var rectjrh = new google.maps.Rectangle({
+          strokeColor: "#FF0000",
+          // strokeOpacity: 0.8,
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          // fillOpacity: 0.35,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.2409914, //bigger->up
+            south: 34.2418714, //small->down
+            east: -118.5276017, //smaller->right
+            west: -118.5299181 //smaller->left
+          }
+        });
+        var rected = new google.maps.Rectangle({
+          strokeColor: "#FF0000",
+          // strokeOpacity: 0.8,
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          // fillOpacity: 0.35,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.2415914, //bigger->up
+            south: 34.2410714, //small->down
+            east: -118.5303017, //smaller->right
+            west: -118.5315181 //smaller->left
+          }
+        });
+        var rectbh = new google.maps.Rectangle({
+          strokeColor: "#FF0000",
+          // strokeOpacity: 0.8,
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          // fillOpacity: 0.35,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.2406914, //bigger->up
+            south: 34.2399014, //small->down
+            east: -118.5301017, //smaller->right
+            west: -118.5315181 //smaller->left
+          }
+        });
+        var rectct = new google.maps.Rectangle({
+          strokeColor: "#FF0000",
+          // strokeOpacity: 0.8,
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          // fillOpacity: 0.35,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.2390914, //bigger->up
+            south: 34.2386014, //small->down
+            east: -118.5303017, //smaller->right
+            west: -118.5314181 //smaller->left
+          }
+        });
+        var rectmah = new google.maps.Rectangle({
+          strokeColor: "#FF0000",
+          // strokeOpacity: 0.8,
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          // fillOpacity: 0.35,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.23689, //bigger->up,bottom
+            south: 34.2378714, //small->down
+            east: -118.5295017, //smaller->right
+            west: -118.5306181 //smaller->left
+          }
+        });
+        var rectssh = new google.maps.Rectangle({
+          strokeColor: "#FF0000",
+          // strokeOpacity: 0.8,
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          // fillOpacity: 0.35,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.236, //up
+            south: 34.2368209, //down
+            east: -118.5300017, //right
+            west: -118.5314181 //left
+          }
+        });
+        var rectcyph = new google.maps.Rectangle({
+          strokeColor: "#FF0000",
+          // strokeOpacity: 0.8,
+          strokeOpacity: 0,
+          strokeWeight: 2,
+          fillColor: "#FF0000",
+          // fillOpacity: 0.35,
+          fillOpacity: 0,
+          clickable: true,
+          map: map,
+          bounds: {
+            north: 34.236, //up
+            south: 34.2368209, //down
+            east: -118.5291507, //smaller->right
+            west: -118.5300001 //smaller->left
+          }
+        });
+      } //function initMap(){} end
+    </script>
+
+    <!--#############  insert map api and draw library######################################################################################## -->
+    <script
+      async="false"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCMTBcA-A47aLtEDnR8orsxEJ5Gf6PSREU&callback=initMap&libraries=drawing"
+      defer
+    ></script>
   </body>
-  <footer>
-  <h2>
-    Tuan Tuan
-    </h2>
-    <h3>
-      by Sherry
-    </h3>
-  </footer>
 </html>

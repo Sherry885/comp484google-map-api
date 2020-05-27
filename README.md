@@ -1,37 +1,20 @@
-Welcome to Glitch
-=================
+Project Google Maps App JavaScript 
+=
+Purpose:
+--
+In this project you are going to create the functionality and UI for a location based Map App using Google Maps API Requirements: You may use glitch or any editor that you prefer. For this project you can use the JQuery library. You may use lecture slides and the past hw’s for sample code but make sure to make it your own.  The purpose of this project is to make sure you have an understanding of JavaScript objects, click events on an element, and how to change properties in elements. Most importantly how to work with a new/unfamiliar API.  
+ 
+Functionality: 
+-- 
+● User will be prompted to double click on a specified location on the map of CSUN.  
 
-Click `Show` in the header to see your app live. Updates to your code will instantly deploy and update live.
+● User will double click on the map to indicate where he/she thinks that location is. 
 
-**Glitch** is the friendly community where you'll build the app of your dreams. Glitch lets you instantly create, remix, edit, and host an app, bot or site, and you can invite collaborators or helpers to simultaneously edit code with you.
+● If correct the user is prompted that their answer is correct and the map shows the location area that is correct in green 
 
-Find out more [about Glitch](https://glitch.com/about).
+● If incorrect the user is prompted that their answer is wrong the map shows the correct location area in red 
 
+● After five locations the user is prompted with how many they got correct total 
 
-Your Project
-------------
-
-### ← README.md
-
-That's this file, where you can tell people what your cool website does and how you built it.
-
-### ← index.html
-
-Where you'll write the content of your website. 
-
-### ← style.css
-
-CSS files add styling rules to your content.
-
-### ← script.js
-
-If you're feeling fancy you can add interactivity to your site with JavaScript.
-
-### ← assets
-
-Drag in `assets`, like images or music, to add them to your project
-
-Made by [Fog Creek](https://fogcreek.com/)
--------------------
-
-\ ゜o゜)ノ
+● All panning and zooming functionalities of map should remain turned off 
+  
