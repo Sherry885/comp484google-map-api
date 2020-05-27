@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Tuan Tuan</title>
+    <meta name="description" content="A cool thing made with Glitch" />
+    <link
+      id="favicon"
+      rel="icon"
+      href="https://glitch.com/edit/favicon-app.ico"
+      type="image/x-icon"
+    />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script src="script.js" defer></script>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>
+        Giga Pet Tuan Tuan
+      </h1>
+    </header>
+
+    <main>
+      <section class="pet-image-container">
+        <!-- Replace pet image with your own pet image -->
+        <img
+          class="pet-image"
+          src="https://cdn.glitch.com/7d5f3157-18ec-4e02-ab0a-8c10032b664f%2FIMG_4433.JPG?v=1588469194873"
+        />
+      </section>
+      <section class="dashboard">
+        <div>
+          Name: <strong><span class="name"></span></strong>
+        </div>
+        <div>
+          Weight: <strong><span class="weight"></span> pounds</strong>
+        </div>
+        <div>
+          Happiness:
+          <strong><span class="happiness"></span> tail wags (per min)</strong>
+        </div>
+        <!--         add new behavior -->
+        <div>
+          Sadness:
+          <strong><span class="sadness"></span> tail wags (per min)</strong>
+        </div>
+        <div class="button-container">
+          <button class="treat-button">
+            Treat
+            <!--             extra credit, add audio -->
+            <audio
+              id="audiotreat"
+              src="https://cdn.glitch.com/7d5f3157-18ec-4e02-ab0a-8c10032b664f%2Fdog_drinking.mp3?v=1586160901893"
+            ></audio>
+          </button>
+          <button class="play-button">
+            Play
+            <!--             extra credit, add audio -->
+            <audio
+              id="audioplay"
+              src="https://cdn.glitch.com/7d5f3157-18ec-4e02-ab0a-8c10032b664f%2Fbill.mp3?v=1586160907119"
+            ></audio>
+          </button>
+          <button class="exercise-button">
+            Exercise
+            <!--             extra credit, add audio -->
+            <audio
+              id="audioexercise"
+              src="https://cdn.glitch.com/7d5f3157-18ec-4e02-ab0a-8c10032b664f%2Fpupwhimper.mp3?v=1586160904356"
+            ></audio>
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- Your web-app is https, so your scripts need to be too -->
+    <script
+      src="https://code.jquery.com/jquery-2.2.1.min.js"
+      integrity="sha256-gvQgAFzTH6trSrAWoH1iPo9Xc96QxSZ3feW6kem+O00="
+      crossorigin="anonymous"
+    ></script>
+  </body>
+  <footer>
+  <h2>
+    Tuan Tuan
+    </h2>
+    <h3>
+      by Sherry
+    </h3>
+  </footer>
+</html>
