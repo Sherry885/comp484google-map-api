@@ -1,91 +1,57 @@
-* {
-  box-sizing: border-box;
+/* color  
+#0D1B2E -- navy
+#429890 -- forest green
+#C3C9E9 -- purple
+*/
+
+/* Always set the map height explicitly to define the size of the div
+ * element that contains the map. */
+#map {
+  height: 100%;
+  width: 40%;
+  float: right;
+  position: relative;
+  right: 10%;
 }
-/* body,font and margin */
+/* Optional: Makes the sample page fill the window. */
+html,
 body {
-  font-family: helvetica, arial, sans-serif;
-  margin: 25px;
-}
-/* main, diaplay & height */
-main {
-  display: block;
-  height: 275px;
-}
-/* change color to grey */
-header {
-  border-bottom: 1px solid grey;
-}
-/* set font size for titles*/
-h1 {
-  font-weight: bold;
-  color: #000;
-  font-size:3em;
-}
-h2{
-  font-size:2em;
-}
-h3{
-  font-size:1em;
+  height: 100%;
+  background:lightyellow;
 }
 
-.bold {
-  font-weight: bold;
-}
-
-p {
-  max-width: 600px;
-}
-
-li {
-  margin-bottom: 5px;
-}
-/* footer style */
-footer {
-/*   text-align: center; */
-  border-top: 1px solid grey;
-}
-
-footer a {
+/* tags */
+#question {
   float: left;
-  margin: 500px;
+  position: relative;
+  left: 20%;
 }
-
-.pet-image {
-  height: 250px;
+#content,
+.q,
+.a,
+.r ,#count{
+  margin: 0% 0% 0% 20%;
 }
-
-.dashboard div {
-  display: block;
+.q {
+  background: lightblue;
+  color: white;
+  height: 20px;
+  width: 300px;
 }
-
-.pet-image-container {
-  float: left;
-  padding: 10px;
+.a {
+  /*   background: lightgreen; */
+  color: green;
 }
-
-.dashboard {
-  float: left;
-  padding: 20px;
+.r {
+  color: red;
 }
-
-.button-container {
-  margin-top: 20px;
+#count{
+  background:red;
+  color: white;
 }
-
-.button-container button {
-  width: 100px;
-  margin-right: 10px;
-  text-align: center;
-  display: inline-block;
-  float: left;
-  font-size: 15px;
-  background-color: #1e2835;
-  border-color: #404853;
+/* animations when click q1 */
+#showclick{
+  position: relative;
   cursor: pointer;
-  background-image: linear-gradient(
-    to bottom,
-    rgba(246, 246, 246, 0.1) 0%,
-    rgba(30, 40, 53, 0) 66%
-  );
-  color: #fafafa;
+  color: red;
 }
