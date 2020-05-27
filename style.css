@@ -1,0 +1,91 @@
+* {
+  box-sizing: border-box;
+}
+/* body,font and margin */
+body {
+  font-family: helvetica, arial, sans-serif;
+  margin: 25px;
+}
+/* main, diaplay & height */
+main {
+  display: block;
+  height: 275px;
+}
+/* change color to grey */
+header {
+  border-bottom: 1px solid grey;
+}
+/* set font size for titles*/
+h1 {
+  font-weight: bold;
+  color: #000;
+  font-size:3em;
+}
+h2{
+  font-size:2em;
+}
+h3{
+  font-size:1em;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+p {
+  max-width: 600px;
+}
+
+li {
+  margin-bottom: 5px;
+}
+/* footer style */
+footer {
+/*   text-align: center; */
+  border-top: 1px solid grey;
+}
+
+footer a {
+  float: left;
+  margin: 500px;
+}
+
+.pet-image {
+  height: 250px;
+}
+
+.dashboard div {
+  display: block;
+}
+
+.pet-image-container {
+  float: left;
+  padding: 10px;
+}
+
+.dashboard {
+  float: left;
+  padding: 20px;
+}
+
+.button-container {
+  margin-top: 20px;
+}
+
+.button-container button {
+  width: 100px;
+  margin-right: 10px;
+  text-align: center;
+  display: inline-block;
+  float: left;
+  font-size: 15px;
+  background-color: #1e2835;
+  border-color: #404853;
+  cursor: pointer;
+  background-image: linear-gradient(
+    to bottom,
+    rgba(246, 246, 246, 0.1) 0%,
+    rgba(30, 40, 53, 0) 66%
+  );
+  color: #fafafa;
+}
